@@ -160,7 +160,6 @@ def card_feeding_last(context, child):
     """
     instance = (
         models.Feeding.objects.filter(child=child)
-        .filter(method="left breast")
         .filter(**_filter_data_age(context))
         .order_by("-end")
         .first()
