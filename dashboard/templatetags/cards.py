@@ -160,6 +160,7 @@ def card_feeding_last(context, child):
     """
     instance = (
         models.Feeding.objects.filter(child=child)
+        .filter(method="left breast")
         .filter(**_filter_data_age(context))
         .order_by("-end")
         .first()
@@ -173,6 +174,51 @@ def card_feeding_last(context, child):
         "hide_empty": _hide_empty(context),
     }
 
+@register.inclusion_tag("cards/feeding_last_left.html", takes_context=True)
+def card_feeding_last_left(context, child):
+    """
+    Information about the most recent feeding from left breast.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Feeding instance.
+    """
+    instance = (
+        models.Feeding.objects.filter(child=child)
+        .filter(method="left breast")
+        .filter(**_filter_data_age(context))
+        .order_by("-end")
+        .first()
+    )
+    empty = not instance
+
+    return {
+        "type": "feeding",
+        "feeding": instance,
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }
+
+@register.inclusion_tag("cards/feeding_last_right.html", takes_context=True)
+def card_feeding_last_right(context, child):
+    """
+    Information about the most recent feeding from right breast.
+    :param child: an instance of the Child model.
+    :returns: a dictionary with the most recent Feeding instance.
+    """
+    instance = (
+        models.Feeding.objects.filter(child=child)
+        .filter(method="right breast")
+        .filter(**_filter_data_age(context))
+        .order_by("-end")
+        .first()
+    )
+    empty = not instance
+
+    return {
+        "type": "feeding",
+        "feeding": instance,
+        "empty": empty,
+        "hide_empty": _hide_empty(context),
+    }
 
 @register.inclusion_tag("cards/feeding_last_method.html", takes_context=True)
 def card_feeding_last_method(context, child):
