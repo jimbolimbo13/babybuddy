@@ -9,7 +9,7 @@
 
 {% block title %}
     {% if feeding %}
-        {% blocktrans trimmed with since=feeding.start|timesince time=feeding.start|time %}
+        {% blocktrans trimmed with since=feeding.end|timesince time=feeding.end|time %}
             <div>{{ since }} ago</div>
             <small>{{ time }}</small>
         {% endblocktrans %}
