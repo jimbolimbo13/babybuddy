@@ -65,11 +65,11 @@ def card_diaperchange_types(context, child, date=None):
     stats = {}
     week_total = 0
     max_date = (time + timezone.timedelta(days=1)).replace(hour=0, minute=0, second=0)
-    min_date = (max_date - timezone.timedelta(days=7)).replace(
+    min_date = (max_date - timezone.timedelta(days=3)).replace(
         hour=0, minute=0, second=0
     )
 
-    for x in range(7):
+    for x in range(3):
         stats[x] = {"wet": 0.0, "solid": 0.0, "empty": 0.0}
 
     instances = (
